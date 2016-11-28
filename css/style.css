@@ -1,0 +1,170 @@
+h1.title {
+    border-left: 0px;
+    color: #6666e8;
+    background-color: #c8e8e8;
+}
+body {
+    font-size: 14px;
+}
+
+.table-condensed2 > thead > tr > th,
+.table-condensed2 > thead > tr > td,
+.table-condensed2 > tbody > tr > th,
+.table-condensed2 > tbody > tr > td,
+.table-condensed2 > tfoot > tr > th,
+.table-condensed2 > tfoot > tr > td {
+  padding: 0px;
+}
+
+table.calendar {
+    border-radius: 6px;
+    margin-bottom: 8px;
+    background-color: #d0e8d0;
+    border: 1px solid green;
+    border-collapse: separate;
+    overflow: hidden;
+}
+table.calendar a {
+    display: block;
+}
+a:hover {
+    background:#ffffff; 
+    text-decoration:none;
+}
+a span.popup {
+    white-space: nowrap;
+    display:none;
+    padding:2px 3px;
+    margin-left:8px;
+}
+a:hover span.popup {
+    display:inline;
+    position:absolute;
+    background:#ffffff;
+    border:1px solid #cccccc;
+    color:#6c6c6c;
+}
+
+table.this_month  {
+    border: 1px solid blue;
+}
+
+table thead th,
+table tbody th, 
+table tbody td {
+    frame: "border";
+    text-align: center;
+}
+table thead th {
+    background-color: white;
+}
+table tbody th {
+    background-color: white;
+}
+table thead th + th,
+table tbody td {
+    border-left: 1px solid #f8f8f8;
+}
+th.sun {
+    color: red;
+}
+th.sat {
+    color: blue;
+}
+td.sun {
+    background-color: #f0d0d0;
+}
+td.sat {
+    background-color: #d0d0e8;
+}
+td.holiday {
+    background-color: #f0d0d0;
+}
+td.private {
+    background-color: #f0e0d0;
+}
+td.noday {
+    background-color: #e8e8e8;
+}
+td.today a {
+    color: blue;
+    font-weight: bold;
+}
+.table-condensed2 > tbody > tr > td.targetDay {
+    border-left-color: blue;
+    border-right-color: blue;
+    border-top-color: blue;
+    border-bottom-color: blue;
+}
+.table-condensed2 > tbody > tr > td.hasDiary {
+    text-decoration: underline;
+    text-decoration-color: #0000d0;
+}
+
+table tbody tr:last-child th,
+table tbody tr:last-child td {
+    border-bottom: none;
+}
+table thead tr:first-child th:first-child {
+    border-radius: 5px 5px 0 0;
+}
+table tbody tr:last-child td:first-child {
+    border-radius: 0 0 0 5px;
+}
+table tbody tr:last-child td:last-child {
+    border-radius: 0 0 5px 0;
+}
+
+h1 {
+    color: #6666e8;
+    background-color: #c8c8e8;
+    font-weight: bold;
+    padding-left: 8px;
+    border-left: 8px solid #8888dd;
+}
+h2 {
+    border-left: 0px;
+    color: #6666e8;
+    background-color: #c8e8e8;
+    padding-left: 4px;
+    border-left: 4px solid #8888dd;
+}
+h3 {
+    border-left: 0px;
+    color: #6666e8;
+    background-color: #c8e8e8;
+    padding-left: 0px;
+    border-left: 0px solid #8888dd;
+}
+div.diary_main
+{
+    background-color: #f0f0ff;
+    font-family: 'ＭＳ ゴシック', 'Ricty Diminished', Consolas, 'Courier New', Courier, Monaco, monospace;
+    line-height: 100%;
+}
+
+p {
+    padding-left: 8px;
+}
+div#editor {
+    font-size: 14px;
+}
+
+table.filer-table thead th.filename,
+table.filer-table tbody td.filename {
+    text-align: left;
+}
+table.filer-table thead th.size,
+table.filer-table tbody td.size {
+    text-align: right;
+}
+table.filer-table thead th.timestamp,
+table.filer-table thead th.action,
+table.filer-table tbody td.timestamp,
+table.filer-table tbody td.action {
+    text-align: center;
+}
+
+a.page-link {
+    font-family: sans-serif;
+}
