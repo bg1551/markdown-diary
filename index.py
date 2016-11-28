@@ -77,5 +77,5 @@ def save(filename):
 if __name__ == '__main__':
     signal.signal(signal.SIGTERM, signal.SIG_DFL)
     sys.path.append('/var/www/diary/conf')
-    run(host='0.0.0.0', port=8001)
+    run(host='0.0.0.0', port=80)
     #run(host='0.0.0.0', port=8001, debug=True, reloader=True)
