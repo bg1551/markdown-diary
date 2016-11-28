@@ -7,5 +7,5 @@ RUN apk --update add python3 make && \
 RUN mkdir -p /var/www/diary
 ADD . /var/www/diary
 WORKDIR /var/www/diary
-EXPOSE 8001
+EXPOSE 80
 CMD ["sh", "./run.sh"]
