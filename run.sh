@@ -1,4 +1,7 @@
 #! /bin/sh -x
+if [ ! -d conf ]; then
+    mkdir conf
+fi
 BASEFILES=`cd base; ls -1`
 for f in $BASEFILES; do
     if [ ! -f data/$f ]; then
