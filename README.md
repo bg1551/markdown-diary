@@ -6,11 +6,11 @@ Bootstrap4/jQuery/tornadoを使用して作成したmarkdown形式の日記管�
     *   はじめに
         *   ubuntu20.04でのインストール手順例になります。
         *   nginxを利用したリーバスプロキシを使います。
-	*   この例ではletsencryptによりpemファイルを利用しています。
-	*   ここでは初期アカウントのubuntuのホームディレクトリにインストールします。
+        *   この例ではletsencryptによりpemファイルを利用しています。
+        *   ここでは初期アカウントのubuntuのホームディレクトリにインストールします。
 
     *   ミドルウェアのインストール
-    	*   python3/pip3/tornado/pandoc/nginx/htpasswdをインストールします。
+        *   python3/pip3/tornado/pandoc/nginx/htpasswdをインストールします。
             ```
             % sudo apt install python3 python3-pip -y
             % sudo pip3 install tornado -y
@@ -34,7 +34,7 @@ Bootstrap4/jQuery/tornadoを使用して作成したmarkdown形式の日記管�
         *   8001ポートに外部からアクセスできるように設定
         *   以下のURLにブラウザから接続
             http://<サーバのIPアドレス>:8001/diary/
-	*   表示できるようであればポートを閉塞
+        *   表示できるようであればポートを閉塞
 
     *   SSL化・基本認証追加
         *   htpasswdファイルを作成
@@ -43,7 +43,7 @@ Bootstrap4/jQuery/tornadoを使用して作成したmarkdown形式の日記管�
             $ sudo htpasswd -c -b htpasswd <ユーザ名> <パスワード>
             ```
         *   nginxの以下のファイルを変更(ドメイン名は正しいものに設定)
-	    /etc/nginx/site-available/default
+            /etc/nginx/site-available/default
             ```
             server {
               listen 443 ssl;
@@ -54,14 +54,14 @@ Bootstrap4/jQuery/tornadoを使用して作成したmarkdown形式の日記管�
               proxy_set_header X-Forwarded-For $remote_addr;
               location /diary {
                 auth_basic "Login";
-            	auth_basic_user_file /etc/nginx/htpasswd;
+                auth_basic_user_file /etc/nginx/htpasswd;
                 proxy_pass http://127.0.0.1:8001;
               }
             }
             ```
     *   サービス化
         *   起動をsystemctlで制御するようにするために設定ファイルを作成します
-	    ファイル名：/usr/lib/systemd/system/multi-user.target.wants/markdown-diary.service
+            ファイル名：/usr/lib/systemd/system/multi-user.target.wants/markdown-diary.service
             ```
             [Unit]
             Description = Markdown Diary Service
