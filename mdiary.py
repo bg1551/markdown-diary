@@ -214,7 +214,7 @@ async def main():
         
 if __name__ == "__main__":
     basicConfig(level = DEBUG, format='%(asctime)s [%(levelname)s] %(module)s | %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
-    sys.path.append(CONFDIR')
+    sys.path.append(CONFDIR)
     import config
     import holidays
     import privates
