@@ -7,4 +7,4 @@ static/html/%.html: static/data/%.md
 	pandoc $< -o $@
 
 static/conf/%.py: static/data/%.md
-	python buildconf.py $< $@
+	python3 buildconf.py $< $@
