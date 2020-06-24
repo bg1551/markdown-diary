@@ -1,10 +1,10 @@
-htmlfiles := $(patsubst data/%.md,html/%.html,$(wildcard data/*.md))
-conffiles = conf/holidays.py conf/privates.py conf/config.py
+htmlfiles := $(patsubst static/data/%.md,static/html/%.html,$(wildcard static/data/*.md))
+conffiles := static/conf/holidays.py static/conf/privates.py static/conf/config.py
 
 all: $(htmlfiles) $(conffiles)
 
-html/%.html: data/%.md
+static/html/%.html: static/data/%.md
 	pandoc $< -o $@
 
-conf/%.py: data/%.md
-	python3 buildconf.py $< $@
+static/conf/%.py: static/data/%.md
+	python buildconf.py $< $@

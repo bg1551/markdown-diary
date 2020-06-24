@@ -1,3 +1,10 @@
+@charset='utf-8'
+@import url(//fonts.googleapis.com/earlyaccess/notosansjp.css);
+@font-face {
+    font-family: 'ime_jp_rp';
+    src: url('ime_jp_rp.woff') format('woff');
+}
+
 h1.title {
     border-left: 0px;
     color: #6666e8;
@@ -98,7 +105,7 @@ td.today a {
 }
 .table-condensed2 > tbody > tr > td.hasDiary {
     text-decoration: underline;
-    text-decoration-color: #0000d0;
+    text-decoration-color: #0000d0;o
 }
 
 table tbody tr:last-child th,
@@ -139,15 +146,15 @@ h3 {
 div.diary_main
 {
     background-color: #f0f0ff;
-    font-family: 'ＭＳ ゴシック', 'Ricty Diminished', Consolas, 'Courier New', Courier, Monaco, monospace;
+    font-family: ime_jp_rp, 'ＭＳ ゴシック', 'Ricty Diminished', Consolas, 'Courier New', Courier, Monaco, monospace;
     line-height: 100%;
 }
 
 p {
     padding-left: 8px;
 }
-div#editor {
-    font-size: 14px;
+#editor {
+    height: 400px;
 }
 
 table.filer-table thead th.filename,

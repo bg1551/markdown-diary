@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block main %}
+<table class="table">
+  <tr>
+    <td><a href="/diary/edit/{{prevDayStr}}">←前の日</a></td>
+    <td><a href="/diary/show/{{target}}">参照</a></td>
+    <td><a href="/diary/edit/{{nextDayStr}}">次の日→</a></td>
+  </tr>
+</table>
+<div class="diary_main">
+  <h1 id="target">{{target}}</h1>
+  <ul class="nav nav-pills" id="mytab">
+    <li class="nav-item"><a href="#tab1" data-toggle="tab" id="tabselect1" class="nav-link active">編集</a></li>
+    <li class="nav-item"><a href="#tab2" data-toggle="tab" id="tabselect2" class="nav-link">表示</a></li>
+  </ul>
+  <div id="myTabContent" class="tab-content">
+    <div class="tab-pane active" role="tabpanel" aria-labelledby="edit-tab" id="tab1">
+      <div id="editor">{% raw targetMd %}</div>
+    </div>
+    <div class="tab-pane" role="tabpanel" aria-labelledby="show-tab" id="tab2">
+      <div id="view">
+	{% raw targetHtml %}
+      </div>
+    </div>
+  </div>
+  <div class="controller">
+    <button type="button" id="saveButton" class="btn btn-default">保存</button>
+    <span id="log"></span>
+  </div>
+</div>
+{% end %}
+
+{% block modal %}
+<div class="modal" id="updateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+	<h4 class="modal-title" id="modal-label">更新確認</h4>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	  <span aria-hidden="true">&times;</span>
+	</button>
+      </div>
+      <div class="modal-body">
+	ファイルがすでに存在します。<br>
+	更新しますか？
+	<div id="diffstr" class="pre-scrollable h6">
+	</div>
+      </div>
+      <div class="modal-footer">
+	<button type="button" class="btn btn-default" data-dismiss="modal">やめる</button>
+	<button type="button" class="btn btn-primary">更新する</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="hidden" style="display:none">
+  <div id="savecheckresult"></div>
+</div>
+{% end %}
+
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.11/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.11/mode-markdown.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.11/theme-dreamweaver.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" type="text/javascript"></script>
+<script>
+  var baseText = "";
+  var target = "{{target}}";
+  var editor = ace.edit("editor");
+  editor.setTheme("ace/theme/dreamweaver");
+  editor.setOption("showInvisibles", true);
+  editor.session.setMode("ace/mode/markdown");
+
+  $(window).on('load', function(){
+      $.ajax({
+          url:'/diary/static/data/' + target + '.md',
+      }).done(function(data, textStatus, jqXHR){
+          editor.session.setValue(data);
+          baseText = data;
+      }).fail(function(data, textStatus, jqXHR){
+          editor.session.setValue("");
+          baseText = editor.getValue();
+      });
+      $("#tabselect2").click(function() {
+	  var target = $("#view");
+	  target.html(marked(editor.getValue()));
+      });
+
+      $('#saveButton').click(function() {
+	  var filename = $("#target").text();
+	  var saveMd = editor.getValue();
+	  $("#log").text("更新確認中...");
+	  $.post('/diary/edit/' + target + '?check=true', saveMd, 
+		 function(data){
+		     $("#savecheckresult").text(data);
+		     if (data.indexOf('UPDATE') === 0 || data == 'DELETE') {
+			 $('#diffstr').html('<pre style="font-size: 8px">' + data + "</pre>");    
+			 $('#updateModal').modal('show');
+		     } else {
+			 $("#log").text("処理中...");
+			 var msg = "更新なし";
+			 if (data.indexOf("UPDATE") === 0) { msg = "更新あり"; } else if (data == "NEW") { msg = "新規保存"; } else if (data == "DELETE") { msg = "削除";}
+			 $.post('/diary/edit/' + target, saveMd, function(data){$("#log").text("処理終了(" + msg + ")");});
+			 baseText = saveMd;
+		     }
+		 }
+		);
+      });
+
+      $('#updateModal').on('click', '.modal-footer .btn-primary', function() {
+	  $('#updateModal').modal('hide');
+	  var saveMd = editor.getValue();
+	  $("#log").text("処理中...");
+	  var msg = "更新なし";
+	  var data2 = $("#savecheckresult").text();
+	  if (data2 == "UPDATE") { msg = "更新あり"; } else if (data2 == "NEW") { msg = "新規保存"; } else if (data2 == "DELETE") { msg = "削除";}
+	  $.post('/diary/edit/' + target, saveMd, function(data){$("#log").text("処理終了(" + msg + ")");});
+	  baseText = saveMd;
+      });
+  });
+</script>
+{% end %}

@@ -1,14 +1,13 @@
 #! /bin/sh -x
-if [ ! -d conf ]; then
-    mkdir conf
-fi
-BASEFILES=`cd base; ls -1`
+mkdir -p static/conf
+mkdir -p static/data
+BASEFILES=`cd static/base; ls -1`
 for f in $BASEFILES; do
-    if [ ! -f data/$f ]; then
+    if [ ! -f static/data/$f ]; then
        echo "copy $f"
-       cp base/$f data/.
+       cp static/base/$f static/data/.
     fi
 done
 
 make
-python3 index.py
+python3 mdiary.py

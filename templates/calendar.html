@@ -1,0 +1,45 @@
+{% if main == True %}
+<table class="table table-condensed2 table-bordered calendar this_month">
+{% else %}
+<table class="table table-condensed2 table-bordered calendar">
+{% end %}
+  <thead>
+  <tr>
+    <th colspan="7">{{year}}/{{month}}</th>
+  </tr>
+  <tr>
+    <th class="sun">日</th>
+    <th>月</th>
+    <th>火</th>
+    <th>水</th>
+    <th>木</th>
+    <th>金</th>
+    <th class="sat">土</th>
+  </tr>  
+  </thead>
+  <tbody>
+  {% for w in cal %}
+  <tr>
+    {% for d in w %}
+    {%   set dstr = "%(y)04d-%(m)02d-%(d)02d" % {"y":year, "m":month, "d":d} %}
+    {%   set targetClass = " targetDay" if dstr == target else "" %}
+    {%   set hasDiary = " hasDiary" if dstr in hasDiaries else "" %}
+    {%   set todayStyle = " today" if dstr == todayStr else "" %}
+    {%   if d > 0 and dstr in holidays %}
+    <td class="holiday{{targetClass}}{{hasDiary}}{{todayStyle}}"><a href="/diary/{{mode}}/{{dstr}}">{{d}}<span class="popup">{{holidays[dstr]}}</span></a></td>
+    {%   elif d > 0 and dstr in privates %}
+    <td class="private{{targetClass}}{{hasDiary}}{{todayStyle}}"><a href="/diary/{{mode}}/{{dstr}}">{{d}}<span class="popup">{{privates[dstr]}}</span></a></td>
+    {%   elif d > 0 and w.index(d) == 0 %}
+    <td class="sun{{targetClass}}{{hasDiary}}{{todayStyle}}"><a href="/diary/{{mode}}/{{dstr}}">{{d}}</a></td>
+    {%   elif d > 0 and w.index(d) == 6 %}
+    <td class="sat{{targetClass}}{{hasDiary}}{{todayStyle}}"><a href="/diary/{{mode}}/{{dstr}}">{{d}}</a></td>
+    {%   elif d > 0 %}
+    <td class="{{targetClass}}{{hasDiary}}{{todayStyle}}"><a href="/diary/{{mode}}/{{dstr}}">{{d}}</a></td>
+    {%   else %}
+    <td class="noday">&nbsp;</td>
+    {%   end %}
+    {% end %}
+  </tr>
+  {% end %}
+  </tbody>
+</table>
