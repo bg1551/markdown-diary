@@ -17,9 +17,10 @@ from logging import basicConfig, getLogger, DEBUG
 
 import importlib
 
-TOPDIR  = "/opt/mdiary"
+TOPDIR  = os.getcwd()
 HTMLDIR = TOPDIR + "/static/html"
 DATADIR = TOPDIR + "/static/data"
+CONFDIR = TOPDIR + "/static/conf"
 
 class Application(tornado.web.Application):
     logger = getLogger(__name__)
@@ -213,7 +214,7 @@ async def main():
         
 if __name__ == "__main__":
     basicConfig(level = DEBUG, format='%(asctime)s [%(levelname)s] %(module)s | %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
-    sys.path.append('/opt/mdiary/static/conf')
+    sys.path.append(CONFDIR')
     import config
     import holidays
     import privates
