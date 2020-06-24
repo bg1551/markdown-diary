@@ -19,7 +19,7 @@ Bootstrap4/jQuery/tornadoを使用して作成したmarkdown形式の日記管�
 	    ```
 
     *   ファイルのダウンロード
-    	```
+	```
 	% cd ~
         % git clone https://github.com/bg1551/markdown-diary.git
 	```
